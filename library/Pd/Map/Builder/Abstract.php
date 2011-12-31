@@ -1,11 +1,8 @@
 <?php
 
-require_once 'Pd/Map.php';
-require_once 'Pd/Map/Item.php';
-
 /**
  * Abstract class for building maps
- * 
+ *
  *
  */
 abstract class Pd_Map_Builder_Abstract {
@@ -39,7 +36,7 @@ abstract class Pd_Map_Builder_Abstract {
     /**
      * Builds the map by running the setup method and
      * then running the builers _build method.
-     * 
+     *
      */
     public function build() {
         $this->setup();

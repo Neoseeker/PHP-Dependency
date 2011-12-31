@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Pd/Make/Abstract.php';
-
 /**
  * Injects (read: setter injection) all of the dependencies
  * into the object.
@@ -24,7 +22,7 @@ class Pd_Make_Setter extends Pd_Make_Abstract {
 
     private function _injectMethods() {
         /* @var $item Pd_Map_Item */
-        
+
         foreach ($this->_map->itemsFor('method') as $item) {
 
             // only inject if the class has the method, or the item allows forcing
@@ -49,7 +47,7 @@ class Pd_Make_Setter extends Pd_Make_Abstract {
 
         }
     }
-    
+
     /**
      * Injects everything into the passed object/instance
      *

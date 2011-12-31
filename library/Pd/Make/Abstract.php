@@ -1,9 +1,5 @@
 <?php
 
-require_once 'Pd/Container.php';
-require_once 'Pd/Make.php';
-require_once 'Pd/Map/Builder/Class.php';
-
 /**
  * Provides common methods that can be used when
  * constructing or injecting objects.
@@ -117,7 +113,7 @@ abstract class Pd_Make_Abstract {
                     $this->_container->name()
             );
         } else {
-            $dependency = $this->_container->dependencies()->get($item->dependencyName());
+            $dependency = \Pd_ServiceMap::get($item->dependencyName(), $this->_container->name());
         }
 
         return $dependency;

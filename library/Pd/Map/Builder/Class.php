@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Pd/Map/Builder/Abstract.php';
-require_once 'Pd/Map/Builder/Parser.php';
-
 /**
  * This class will read a class and build a dependency map
  * (of items) based off the doc blocks.
@@ -49,9 +46,9 @@ class Pd_Map_Builder_Class extends Pd_Map_Builder_Abstract {
 
     /**
      * Pass in a reflection item (class, property, method)
-     * and this function will build a parser and return its 
+     * and this function will build a parser and return its
      * results.
-     * 
+     *
      * @param ReflectionClass $classProperty
      * @return array all options
      */
@@ -134,5 +131,5 @@ class Pd_Map_Builder_Class extends Pd_Map_Builder_Abstract {
     }
 
 
-    
+
 }

@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Pd/Map.php';
-
 /**
  * Holds all of the maps.
  *

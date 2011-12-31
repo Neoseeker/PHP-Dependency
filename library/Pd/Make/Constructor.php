@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Pd/Make/Abstract.php';
-
 /**
  * Builds (read: constructor injection) the object.
  *

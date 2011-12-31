@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Pd/Make/Constructor.php';
-require_once 'Pd/Make/Setter.php';
-
 class Pd_Make {
 
     /**

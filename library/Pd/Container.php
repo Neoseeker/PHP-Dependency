@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Pd/Container/Maps.php';
-require_once 'Pd/Container/Dependencies.php';
-
 /**
  * Singleton (eww) that holds dependencies/maps.
  *
@@ -44,7 +41,7 @@ class Pd_Container {
             self::$_instance[$container]->setName($container);
             self::$_instance[$container]->setup();
         }
-        
+
         return self::$_instance[$container];
 
     }
@@ -75,7 +72,7 @@ class Pd_Container {
      * Sets up the container by creating a new map
      * and dependency holder.  This function doesn't really
      * need to ever be called, since the get() function
-     * calls it when creating a 'new' container.  
+     * calls it when creating a 'new' container.
      */
     public function setup() {
         $this->_maps = new Pd_Container_Maps();
