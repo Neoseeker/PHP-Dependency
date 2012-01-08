@@ -76,7 +76,7 @@ class Pd_Container {
      */
     public function setup() {
         $this->_maps = new Pd_Container_Maps();
-        $this->_dependencies = new Pd_Container_Dependencies();
+        $this->_dependencies = new Pd_Container_Dependencies($this->name());
     }
 
 

@@ -9,50 +9,50 @@
  */
 class PdTests_stubs_Dummy {
 
-    protected $_apple = null;
+	protected $_apple = null;
 
-    /**
-     * @PdInject Pear
-     */
-    public $pear;
-    
-    private $constructorArg;
+	/**
+	 * @PdInject Pear
+	 */
+	public $pear;
 
-    /**
-     * @PdInject Banana
-     */
-    public function  __construct($constructorArg = null) {
-        $this->constructorArg = $constructorArg;
-    }
+	private $constructorArg;
 
-    /**
-     * @PdInject Apple
-     */
-    public function setApple($apple) {
-        $this->_apple = $apple;
-    }
+	/**
+	 * @PdInject Banana
+	 */
+	public function  __construct($constructorArg = null) {
+		$this->constructorArg = $constructorArg;
+	}
 
-    public function apple() {
-        return $this->_apple;
-    }
+	/**
+	 * @PdInject Apple
+	 */
+	public function setApple($apple) {
+		$this->_apple = $apple;
+	}
 
-    public function getConstructorArg() {
-        return $this->constructorArg;
-    }
+	public function apple() {
+		return $this->_apple;
+	}
 
-    public function hello() {
-        return 'world';
-    }
+	public function getConstructorArg() {
+		return $this->constructorArg;
+	}
 
-    public function __call($name, $args) {
-        $var = substr($name, 3, (strlen($name) - 3));
-        $var[0] = strtolower($var[0]);
+	public function hello() {
+		return 'world';
+	}
 
-        $this->{$var} = $args[0];
+	public function __call($name, $args) {
+		$var = substr($name, 3, (strlen($name) - 3));
+		$var[0] = strtolower($var[0]);
 
-    }
+		$this->{$var} = $args[0];
 
-    public function forcedVar() {
-        return $this->force;
-    }
+	}
+
+	public function forcedVar() {
+		return $this->force;
+	}
 }

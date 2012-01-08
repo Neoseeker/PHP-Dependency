@@ -7,35 +7,48 @@
  */
 class Pd_Container_Dependencies {
 
-    private $_dependencies = array();
+	private $containerName;
 
-    /**
-     * Returns a dependency by name.  If dependency is not found,
-     * null is returned.
-     *
-     * @param string $name
-     * @return mixed dependency
-     */
-    public function get($name) {
+	private $_dependencies = array();
 
-        if (isset($this->_dependencies[$name])) {
-            return $this->_dependencies[$name]['instance'];
-        } else {
-            return null;
-        }
+	public function __construct($container = 'main') {
+		$this->containerName = $container;
+	}
 
-    }
+	/**
+	 * Returns a dependency by name.  If dependency is not found,
+	 * null is returned.
+	 *
+	 * @param string $name
+	 * @param bool $disable_lazy_load   disable lazy loading (default: false)
+	 * @return mixed dependency
+	 */
+	public function get($name, $disable_lazy_load = false) {
 
-    /**
-     * Sets a depenedency by name
-     * 
-     * @param string $name
-     * @param mixed $dependency resource
-     */
-    public function set($name, $dependency) {
-        $this->_dependencies[$name] = array(
-            'instance' => $dependency,
-        );
-    }
+		if (isset($this->_dependencies[$name])) {
+			return $this->_dependencies[$name]['instance'];
+		} else {
+			if (!$disable_lazy_load) {
+				$dependency = \Pd_ServiceMap::get($name, $this->containerName);
+				if (!is_null($dependency)) {
+					return $dependency;
+				}
+			}
+			return null;
+		}
+
+	}
+
+	/**
+	 * Sets a depenedency by name
+	 *
+	 * @param string $name
+	 * @param mixed $dependency resource
+	 */
+	public function set($name, $dependency) {
+		$this->_dependencies[$name] = array(
+			'instance' => $dependency,
+		);
+	}
 
 }

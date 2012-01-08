@@ -7,11 +7,14 @@
 
 class PdTests_stubs_NonInst {
 
-   public function aMethod() {
-       return 'this was called';
-   }
+	public function aMethod() {
+		return 'this was called';
+	}
 
-   private function  __construct() { }
-   private function  __clone() { }
-   
+	private function  __construct() {
+	}
+
+	private function  __clone() {
+	}
+
 }

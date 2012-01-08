@@ -32,7 +32,7 @@ class Pd_ServiceMap {
 	 */
 	static public function get($service, $fromContainer = 'main') {
 		$serviceMap = new self($fromContainer);
-		$serviceObj = $serviceMap->getPdContainer()->get($service);
+		$serviceObj = $serviceMap->getPdContainer()->get($service, true);
 		if (!is_null($serviceObj)) {
 			return $serviceObj;
 		}
