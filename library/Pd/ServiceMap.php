@@ -9,12 +9,15 @@ class Pd_ServiceMap {
 	static protected $serviceDefinition = 'Pd_BaseServiceDefinition';
 
 	/**
-	 * Set the service definition class - you can only run this once
+	 * Set the service definition class - you can only run this once unless you are in a unit test
 	 * @static
 	 * @param string $serviceDefinition
 	 */
 	static public function set_ServiceDefinition($serviceDefinition) {
-		if (!isset(self::$meta['define_ServiceDefinition'])) {
+		if (!isset(self::$meta['define_ServiceDefinition']) || GlobalDefines::is_in_unit_test()) {
+			if (GlobalDefines::is_in_unit_test() && self::get_ServiceDefinition()) {
+				self::$meta['orig_ServiceDefinition'] = self::get_ServiceDefinition();
+			}
 			self::$serviceDefinition = $serviceDefinition;
 			self::$meta['define_ServiceDefinition'] = true;
 		}
@@ -22,6 +25,17 @@ class Pd_ServiceMap {
 
 	static protected function get_ServiceDefinition() {
 		return self::$serviceDefinition;
+	}
+
+	/**
+	 * Restore service definition in a unit test - ran in tearDownAfterClass()
+	 * @static
+	 */
+	static public function restore_ServiceDefinition() {
+		if (GlobalDefines::is_in_unit_test() && isset(self::$meta['define_ServiceDefinition']) && isset(self::$meta['orig_ServiceDefinition'])) {
+			self::$serviceDefinition = self::$meta['orig_ServiceDefinition'];
+			unset(self::$meta['orig_ServiceDefinition']);
+		}
 	}
 
 	/**
