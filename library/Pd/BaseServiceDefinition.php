@@ -1,4 +1,6 @@
 <?php
+use \Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\HttpFoundation\Response;
 
 class Pd_BaseServiceDefinition {
 	static public function create($service) {
@@ -11,6 +13,14 @@ class Pd_BaseServiceDefinition {
 
 	static protected function get_db() {
 		return new Db_RW();
+	}
+
+	static protected function get_request() {
+		return Request::createFromGlobals();
+	}
+
+	static protected function get_response() {
+		return new Response();
 	}
 
 	/**
