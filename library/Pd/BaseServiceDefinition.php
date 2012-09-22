@@ -22,6 +22,19 @@ class Pd_BaseServiceDefinition {
 		return nTimer::create();
 	}
 
+	static protected function get_redis() {
+		$redis = new Redis();
+		$redis->connect('127.0.0.1');
+
+		return $redis;
+	}
+
+	static protected function get_cassandra() {
+		$dsn = "cassandra:host=127.0.0.1;port=9160";
+		$cassandra = new PDO("cassandra:host=127.0.0.1;port=9160");
+
+		return $cassandra;
+	}
 
 	static protected function get_request() {
 		return Request::createFromGlobals();
@@ -51,9 +64,6 @@ class Pd_BaseServiceDefinition {
 	 * @return nMemcached
 	 */
 	static protected function get_memcache() {
-
-
-
 		/** @var \nBrowser $browser  */
 		$browser = \Pd_ServiceMap::get('browser');
 		if ($browser->show_mobile_mode()) {
@@ -71,6 +81,27 @@ class Pd_BaseServiceDefinition {
 								  'compress_threshold' => 1024000,
 								  'persistant' => true),
 								  static::log_memcache_keys(), static::$log_memcache_to_file);
+	}
+
+	/**
+	 * @static
+	 * @return nMemcached|nTyrantMemcachedAPI
+	 */
+	static protected function get_memcachedb() {
+		if (\GlobalDefines::is_in_dev_mode() && defined('DEVELOPER') && DEVELOPER == 'hhh') {
+			$memcachedb = nTyrantMemcachedAPI::create(array(	'servers' => array(NEO_TOKYO_TYRANT_SERVER_IP),
+			                                                    'debug'   => false,
+			                                                    'compress_threshold' => 128000,
+			                                                    'persistant' => false
+			), static::log_memcache_keys(), static::$log_memcache_to_file);
+		} else {
+			$memcachedb = nTyrantMemcached::create(array(	'servers' => array(NEO_TOKYO_TYRANT_SERVER_IP),
+			                                                 'debug'   => false,
+			                                                 'compress_threshold' => 128000,
+			                                                 'persistant' => false
+			),static::log_memcache_keys(), static::$log_memcache_to_file);
+		}
+		return $memcachedb;
 	}
 
 	//Helper functions
