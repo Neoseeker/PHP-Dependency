@@ -1,6 +1,9 @@
 <?php
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
+use \Symfony\Component\HttpFoundation\Session\Session;
+use \Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use \Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHandler;
 
 class Pd_BaseServiceDefinition {
 
@@ -42,6 +45,21 @@ class Pd_BaseServiceDefinition {
 
 	static protected function get_response() {
 		return new Response();
+	}
+
+	static protected function get_flash() {
+		return new \neolib\FlashMessage();
+	}
+
+	static protected function get_session() {
+		if (!class_exists('SessionHandlerInterface')) {
+			include_once PHP_LIBRARIES_PATH.'vendor/symfony/symfony/src/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php';
+		}
+		/** @var \nMemcached $memcache */
+		$memcache = \Pd_ServiceMap::get('memcache');
+		$storage = new NativeSessionStorage(array(), new MemcacheSessionHandler($memcache));
+		$session = new Session($storage);
+		return $session;
 	}
 
 	/**
@@ -109,7 +127,7 @@ class Pd_BaseServiceDefinition {
 	static function log_memcache_keys() {
 		static $log_memcache_keys;
 		if (!isset($log_memcache_keys)) {
-			$log_memcache_keys = (isset($_SERVER["SERVER_ADDR"]) && in_array(nBase::get_value('REMOTE_ADDR',$_SERVER), unserialize(DEBUG_IPS)) ? true : false);
+			$log_memcache_keys = (GlobalDefines::is_in_debug_ips() ? true : false);
 		}
 		return $log_memcache_keys;
 	}
