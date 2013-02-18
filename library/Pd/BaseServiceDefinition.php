@@ -131,6 +131,14 @@ class Pd_BaseServiceDefinition {
 		}
 		return $log_memcache_keys;
 	}
+
+	/**
+	 * @static
+	 * @return neolib\Sphinx\SphinxClient
+	 */
+	static protected function get_sphinx() {
+		return new \neolib\Sphinx\SphinxClient();
+	}
 }
 
 ?>
