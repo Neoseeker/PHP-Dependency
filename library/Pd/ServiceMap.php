@@ -6,7 +6,12 @@ class Pd_ServiceMap {
 	 */
 	protected $fromContainer;
 	static protected $meta = array();
-	static protected $serviceDefinition = 'Pd_BaseServiceDefinition';
+	/**
+	 * @var string  $serviceDefinition
+	 * Neoseeker related projects uses BaseServiceDefinition from neolib
+	 * For all other projects, please point this to 'Pd_BaseServiceDefinition'
+	 */
+	static protected $serviceDefinition = '\neolib\Config\BaseServiceDefinition';
 
 	/**
 	 * Set the service definition class - you can only run this once unless you are in a unit test
